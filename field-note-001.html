@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validating Input Before Processing | Veyrova</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>VEYROVA</h1>
+        <p>Build. Test. Understand.</p>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="field-notes.html">Field Notes</a>
+            <a href="guides.html">Guides</a>
+            <a href="about.html">About</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <article class="article-page">
+
+            <p class="article-meta">
+                FIELD NOTE 001 · PYTHON · DEFENSIVE PROGRAMMING
+            </p>
+
+            <h2>Validating Input Before Processing</h2>
+
+            <p class="article-lead">
+                A practical lesson from improving input validation
+                in a Python Security Log Analyzer.
+            </p>
+
+            <h3>The problem</h3>
+
+            <p>
+                A function may receive arguments that do not match
+                what it expects. Without validation, unexpected values
+                can cause confusing behavior or errors later in
+                the processing logic.
+            </p>
+
+            <p>
+                While developing a Python Security Log Analyzer,
+                I worked on making its repeated-failure detection
+                function reject invalid input deliberately.
+            </p>
+
+            <h3>What changed</h3>
+
+            <p>
+                First, the function's threshold argument needed to
+                be an integer greater than zero. Invalid types were
+                rejected with TypeError, while zero and negative
+                thresholds were rejected with ValueError.
+            </p>
+
+            <p>
+                Next, I added validation for individual failed-login
+                counts. Non-integer values and booleans were rejected.
+                Negative counts were also rejected, while zero remained
+                valid.
+            </p>
+
+            <h3>An important Python detail</h3>
+
+            <p>
+                Python treats bool as a subclass of int. This means
+                a simple integer type check can accept True and False.
+                Explicitly checking for booleans prevents that mistake.
+            </p>
+
+            <pre><code>if isinstance(count, bool) or not isinstance(count, int):
+    raise TypeError("failure counts must be integers")
+
+if count &lt; 0:
+    raise ValueError("failure counts cannot be negative")</code></pre>
+
+            <h3>How I tested the changes</h3>
+
+            <p>
+                I added automated tests for invalid types, boolean
+                values, negative numbers, and valid zero counts.
+                The tests checked that the appropriate exceptions
+                were raised.
+            </p>
+
+            <p>
+                At Month 3, Day 2, the focused test file reported
+                seven test methods passing. The full project suite
+                reported eighteen test methods passing, and the
+                full log analysis passed.
+            </p>
+
+            <h3>What I learned</h3>
+
+            <p>
+                Validation should happen before data is used in
+                comparisons or other processing operations.
+                It is better to reject invalid input deliberately
+                than to allow unexpected behavior later.
+            </p>
+
+            <p>
+                I also learned that testing should cover more than
+                ordinary inputs. Boundary values and unexpected
+                types deserve their own tests.
+            </p>
+
+            <h3>Current limitations</h3>
+
+            <p>
+                Passing these tests demonstrates the behavior
+                covered by the test cases. It does not prove that
+                every possible input or future change has been tested.
+            </p>
+
+            <p>
+                This is an ongoing learning project, and its behavior
+                will continue to be tested and improved.
+            </p>
+
+            <p>
+                <a href="projects.html">Explore the Python Security Log Analyzer</a>
+            </p>
+
+            <p>
+                <a href="field-notes.html">← Back to Field Notes</a>
+            </p>
+
+        </article>
+
+    </main>
+
+    <footer>
+        <p>Veyrova — Build. Test. Understand.</p>
+    </footer>
+
+</body>
+</html>

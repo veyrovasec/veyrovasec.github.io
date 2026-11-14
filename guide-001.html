@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Validate Python Inputs | Veyrova</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>VEYROVA</h1>
+        <p>Build. Test. Understand.</p>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="projects.html">Projects</a>
+            <a href="field-notes.html">Field Notes</a>
+            <a href="guides.html">Guides</a>
+            <a href="about.html">About</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <article class="article-page">
+
+            <p class="article-meta">
+                GUIDE 001 · PYTHON · DEFENSIVE PROGRAMMING
+            </p>
+
+            <h2>How to Validate Python Function Inputs</h2>
+
+            <p class="article-lead">
+                Learn how to reject unexpected argument types,
+                check acceptable values, and produce meaningful errors.
+            </p>
+
+            <h3>1. Why input validation matters</h3>
+
+            <p>
+                A function receives data from its caller. That data
+                might not be the type or value the function expects.
+                Input validation checks whether the data is acceptable
+                before the function processes it.
+            </p>
+
+            <h3>2. Understand TypeError</h3>
+
+            <p>
+                TypeError is appropriate when a value has the wrong
+                type for the operation or function contract.
+            </p>
+
+            <p>For example, imagine a function expects an integer:</p>
+
+            <pre><code>if not isinstance(threshold, int):
+    raise TypeError("threshold must be an integer")</code></pre>
+
+            <h3>3. Remember that booleans are integers in Python</h3>
+
+            <p>
+                Python's bool type is a subclass of int. Therefore,
+                isinstance(True, int) evaluates to True.
+            </p>
+
+            <p>
+                When a function should accept ordinary integers
+                but not booleans, check for bool explicitly:
+            </p>
+
+            <pre><code>if isinstance(threshold, bool) or not isinstance(threshold, int):
+    raise TypeError("threshold must be an integer")</code></pre>
+
+            <h3>4. Understand ValueError</h3>
+
+            <p>
+                ValueError is useful when the type is correct but
+                the value is outside the function's accepted range.
+            </p>
+
+            <p>
+                For example, a threshold might need to be greater
+                than zero:
+            </p>
+
+            <pre><code>if threshold &lt;= 0:
+    raise ValueError("threshold must be greater than zero")</code></pre>
+
+            <h3>5. Validate before processing</h3>
+
+            <p>
+                Put validation near the beginning of the function.
+                This makes the function's requirements clear and
+                prevents invalid data from reaching later operations.
+            </p>
+
+            <h3>6. Test both invalid and valid inputs</h3>
+
+            <p>
+                A useful test suite should check:
+            </p>
+
+            <ul>
+                <li>Unexpected data types.</li>
+                <li>Boolean values where ordinary integers are required.</li>
+                <li>Values outside the accepted range.</li>
+                <li>Valid boundary values, such as zero when allowed.</li>
+                <li>Whether existing expected behavior still works.</li>
+            </ul>
+
+            <h3>Final principle</h3>
+
+            <p>
+                Define what a function accepts, validate those
+                requirements, and test the behavior. A function
+                should not silently depend on assumptions about
+                its arguments.
+            </p>
+
+            <p>
+                <a href="field-note-001.html">
+                    Read the related Field Note
+                </a>
+            </p>
+
+            <p>
+                <a href="guides.html">← Back to Guides</a>
+            </p>
+
+        </article>
+
+    </main>
+
+    <footer>
+        <p>Veyrova — Build. Test. Understand.</p>
+    </footer>
+
+</body>
+</html>
